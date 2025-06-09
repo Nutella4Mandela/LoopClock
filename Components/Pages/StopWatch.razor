@@ -1,0 +1,10 @@
+﻿@page "/stopwatch"
+
+<h1 class="center">StopWatch</h1>
+
+<MudText>@elapsedTime</MudText>
+<MudToggleIconButton Toggled="@isRunning" ToggledChanged="OnTimerResets" Icon="@Icons.Material.Filled.Refresh"></MudToggleIconButton>
+<MudToggleIconButton Toggled="@isRunning" ToggledChanged="OnTimerChanges" Icon="@Icons.Material.Filled.PlayArrow" ToggledIcon="@Icons.Material.Filled.Pause" ></MudToggleIconButton>
+
+
+

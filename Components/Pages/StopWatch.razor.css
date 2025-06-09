@@ -1,0 +1,9 @@
+.center {
+    margin: auto;
+    background-image: linear-gradient(180deg, #7b4397 0%, #faaca8 95%);
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    padding: 1%;
+    border-radius: 0px 0px 20px 20px;
+}
