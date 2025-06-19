@@ -4,36 +4,37 @@
     width: 3.5rem;
     height: 2.5rem;
     color: white;
-    position: absolute;
+    z-index: 1000;
+    position: fixed;
     top: 0.5rem;
-    right: 1rem;
+    left: 1rem;
     border-radius: 20px 20px 20px 20px;
     transition: border-radius 0.2s ease-in-out;
+    background-color: aqua;
     background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") no-repeat center/1.75rem rgba(255, 255, 255, 0.1);
 }
 
     .navbar-toggler:checked {
-        background-color: #ddd6f3;
-        transition: background-color 0.2s ease-in-out;
-        border-radius: 20px 20px 20px 20px;
-        transition: border-radius 0.2s ease-in-out;
+        background-color: rgba(255, 255, 255, 0.5);
     }
 
     .navbar-toggler:hover {
         border-radius: 10px 10px 10px 10px;
         transition: border-radius 0.2s ease-in-out;
     }
+
 .top-row {
     height: 10%;
     color: white;
     text-align: center;
-    padding: 4%;
+    padding: 2%;
     background-color: #7b4397;
 }
 
 .navbar-brand {
     font-size: 38px;
     color: white;
+    width: 100%;
 }
 
 .bi {
@@ -41,7 +42,7 @@
     position: relative;
     width: 1.25rem;
     height: 1.25rem;
-    margin-right: 1rem;
+    margin-right: 0.75rem;
     top: -1px;
     background-size: cover;
 }
@@ -59,7 +60,8 @@
 }
 
 .nav-item {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
     padding-bottom: 0.5rem;
 }
 
@@ -100,33 +102,111 @@
 
 @media (min-width: 641px) {
     .navbar-toggler {
-        display: none;
+        display: block;
     }
 
     .nav-scrollable {
         /* Never collapse the sidebar for wide screens */
         display: block;
+        width: 0%;
         /* Allow sidebar to scroll for tall menus */
-        height: calc(90vh - 3.5rem);
+        height: calc(90vh);
+        position: fixed;
         overflow-y: auto;
-    }
-}
-@media (max-width: 640.98px) {
-    .navbar-toggler:checked ~ .nav-scrollable {
-        animation: appear 0.8s;
+        background-image: linear-gradient(180deg, #7b4397 40%, #19547b 100%);
     }
 
-    @keyframes appear {
+    .navbar-brand {
+        font-size: 28px;
+        opacity: 0;
+    }
+
+    .top-row {
+        display: none;
+    }
+
+    #toggle:checked ~ .top-row {
+        animation: appears 0.8s;
+        display: block;
+        position: sticky;
+    }
+    @keyframes appears {
         from {
-            height: 0px;
             width: 0px;
             opacity: 0;
         }
 
         to {
-            height: 248px;
+            width: 100%;
+            opacity: 1;
+        }
+    }
+
+    #toggle:checked ~ .nav-scrollable {
+        animation: appear 0.8s;
+        width: 100%;
+        position: sticky;
+    }
+
+    @keyframes appear {
+        from {
+            width: 0px;
+            opacity: 0;
+        }
+
+        to {
             width: 100%;
             opacity: 1;
         }
     }
 }
+
+@media (max-width: 640.98px) {
+    .navbar-toggler:checked ~ .nav-scrollable {
+        animation: appear 0.8s;
+        transform-origin: top;
+    }
+    .top-row {
+        display: none;
+    }
+    
+
+    @keyframes appear {
+        from {
+            transform: scaleY(0);
+            height: 0px;
+            opacity: 0;
+        }
+
+        to {
+            transform: scaleY(1);
+            height: 100%;
+            opacity: 1;
+        }
+    }
+
+    .navbar-brand {
+        padding-left: 5%;
+        font-size:12px;
+        opacity: 0;
+    }
+
+    #toggle:checked ~ .top-row {
+        animation: appears 0.8s;
+        display: block;
+        position: sticky;
+    }
+
+    @keyframes appears {
+        from {
+            height: 0px;
+            opacity: 0;
+        }
+
+        to {
+            height: 100%;
+            opacity: 0;
+        }
+    }
+}
+

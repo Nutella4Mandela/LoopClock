@@ -1,3 +1,72 @@
 ﻿@page "/"
-<h1 class="center">Timers</h1>
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
 
+
+<h1 class="center">Multi Tool Trackers</h1>
+
+@if (!showTypeButtons)
+{
+    <div class="button-layout">
+    <button class="Buttons adder" @onclick="ShowTypeOptions"> <img src="Images/X.png" class="icon-img" /></button>
+    </div>
+}
+else
+{
+    <div class="nice-text @movingClass">
+        <p class="text-color">Timer</p> <p class="text-color">Stopwatch</p> <p class="text-color">Clicky!</p> <p class="text-color">Cancel</p>
+        </div>
+    <div class="button-layout-group @animationClass">
+        <button class="Buttons" @onclick="() => AddNewItem(TimerType.Timer)">
+            <img src="Images/Timer.png" alt="Timer" class="icon-img" />
+            </button>
+        <button class="Buttons" @onclick="() => AddNewItem(TimerType.Stopwatch)">
+            <img src="Images/Stopwatch.png" alt="Stopwatch" class="icon-img" /></button>
+        <button class="Buttons" @onclick="() => AddNewItem(TimerType.Clickcounter)">
+            <img src="Images/Click.png" alt="Clickcounter" class="icon-img" /></button>
+    </div>
+    <div class="button-layout @rotatingClass">
+        <button class="Buttons" @onclick="HideTypeOptions">
+            <img src="Images/X.png" class="icon-img" /></button>
+    </div>
+}
+
+
+<div class="Blocks">
+@foreach (var tracker in trackers.Select((t, i) => new { t, i }))
+{
+        <div class="Details @(selectedIndex == tracker.i ? "selected" : "")" @onclick="() => Edit(tracker.i)">
+        @if(tracker.t.Type == TimerType.Timer)
+            {
+                <svg class="progress-ring">
+                    <circle class="progress-ringbar" r="87" cx="90" cy="90" stroke-dasharray="550" stroke-dashoffset="@tracker.t.ProgressOffset" />
+                </svg>
+            }
+        <button class="Delete" @onclick:stopPropagation @onclick="() => Delete(tracker.t)">X</button>
+        
+        <p class="Titles"><strong>@tracker.t.Name</strong></p>
+
+        @switch (tracker.t.Type)
+        {
+            case TimerType.Stopwatch:
+            <p class="ActiveTime">@tracker.t.ElapsedTimeFormatted</p>
+                    <div class="Play">
+                        <button class="Toggles" @onclick:stopPropagation @onclick="() => Toggle(tracker.t)"><img src="Images/@(tracker.t.IsRunning ? "Pause.png" : "Play.png")" class="icon-smol"/></button>
+                        <button class="Reset" @onclick:stopPropagation @onclick="() => Reset(tracker.t)"><img src="Images/Reset.png" class="icon-res" /></button>
+                    </div>
+                break;
+            case TimerType.Timer:
+                    <p class="ActiveTime">@tracker.t.CurrentTimeFormatted</p>
+                /*<p><strong>End Time:</strong> @(GetEstimatedEndTime(tracker.t))</p>*/
+                    <div class="Play">
+                        <button class="Toggles" @onclick:stopPropagation @onclick="() => Toggle(tracker.t)"><img src="Images/@(tracker.t.IsRunning ? "Pause.png" : "Play.png")" class="icon-smol" /></button>
+                        <button class="Reset" @onclick:stopPropagation @onclick="() => Reset(tracker.t)"><img src="Images/Reset.png" class="icon-res" /></button>
+                    </div>
+                break;
+            case TimerType.Clickcounter:
+                    <button class="ActiveClick" @onclick:stopPropagation @onclick="() => IncrementClick(tracker.t)">@tracker.t.ClickCount</button>
+                break;
+        }
+       </div>
+}
+</div>

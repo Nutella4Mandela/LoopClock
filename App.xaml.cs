@@ -1,4 +1,4 @@
-﻿namespace Time_Zone
+﻿namespace ChronoLoop
 {
     public partial class App : Application
     {
@@ -9,7 +9,7 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new MainPage()) { Title = "Timer-Zone" };
+            return new Window(new MainPage()) { Title = "ChronoLoop" };
         }
     }
 }

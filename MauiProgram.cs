@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
 
-namespace Time_Zone
+namespace ChronoLoop
 {
     public static class MauiProgram
     {

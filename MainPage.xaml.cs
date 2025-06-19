@@ -1,4 +1,4 @@
-﻿namespace Time_Zone
+﻿namespace ChronoLoop
 {
     public partial class MainPage : ContentPage
     {
